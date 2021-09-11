@@ -11,7 +11,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Screenshots of the Uploader
 1. Upload Multiple Images
-![Uploader](src/assets/images/uploader.png)
+![Uploader](src/assets/images/Uploader.png)
 2. Loading Bar
 ![Loading](src/assets/images/loader.png)
 3. Uploaded Successfully
