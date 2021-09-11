@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Helper } from './helper';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'image-uploader';
+  constructor() {
+    Helper.isNextStep = false;
+  }
 }

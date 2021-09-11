@@ -1,4 +1,4 @@
-<div class="uploader-container" *ngIf="!showLoader">
+<div class="uploader-container">
     <h1 class="uploader-heading">Upload your image</h1>
     <p class="uploader-subheading">File should be Jpeg, Png..</p>
     <div class="drag-and-drop-zone" appDnd (fileDropped)="onFilesDropped($event)">
@@ -10,4 +10,3 @@
     <input id="file-upload" type="file" (change)="fileBrowseHandler($event)" multiple accept=".png,.jpg,.jpeg">
     <h1 class="error" *ngIf="error">The selected file should be a '.jpg' or '.png'. Please try again</h1>
 </div>
-<app-loader *ngIf="showLoader"></app-loader>

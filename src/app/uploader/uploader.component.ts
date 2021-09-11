@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../data.service';
+import { Helper } from '../helper';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-uploader',
@@ -9,13 +12,13 @@ import { Router } from '@angular/router';
 export class UploaderComponent implements OnInit {
 
   readonly allowedFormats = new Set(['png','jpg','jpeg']);
-  readonly loadingTime = 2000;
   error = false;
-  showLoader = false;
   router: Router;
+  dataService: DataService;
 
-  constructor(router: Router) {
+  constructor(router: Router, dataService: DataService) {
     this.router = router;
+    this.dataService = dataService;
   }
 
   ngOnInit(): void {
@@ -33,12 +36,10 @@ export class UploaderComponent implements OnInit {
     let allowed = this.checkFormat(files);
     if(allowed[0]){
       this.error = false;
-      this.showLoader = true;
-      setTimeout(()=>{
-        this.showLoader = false;
-        this.router.navigateByUrl('uploaded-successfully');
-      }, this.loadingTime);
-      //redirect to loading page. time taken on loading page = total number of files
+      this.dataService.setImages(files);
+      Helper.isNextStep = true;
+      this.router.navigate(['loading'], { skipLocationChange: true });
+      //redirect to loading page.
     }else{
       this.error = true;
     }
@@ -51,6 +52,14 @@ export class UploaderComponent implements OnInit {
       }
     }
     return [true];
+  }
+
+  @HostListener('window:popstate', ['$event'])
+  onBrowserBackBtnClose(event: Event) {
+      event.preventDefault(); 
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+      this.router.navigate(['/upload-image'],  {replaceUrl:true});
   }
 
 }
